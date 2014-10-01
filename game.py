@@ -8,10 +8,9 @@ from board import Board
 import board_analyzer
 
 class Game(object):
-
     def __init__(self):
         """
-        Initialize new game.
+        Initializes new game.
         """
         #Create new game board
         self._board = Board() 

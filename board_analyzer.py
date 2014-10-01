@@ -5,12 +5,11 @@ from copy import deepcopy
 
 def kingLocator(board, player):
     """
-    Determines the location of the king of player
+    Determines the location of the king of a given player.
     
     @param board:   A list of lists representing the board state.
-    @param player:  Player (e.g. constants.WHITE_PLAYER)
-    @return:        returns list indicies of player's king
-                    (e.g. [0, 4])
+    @param player:  Player (e.g. constants.WHITE_PLAYER).
+    @return:        Returns the indicies of the current player's king (e.g. [0, 4]).
     """
     if player == constants.WHITE_PLAYER:
         piece = constants.KING_SYMBOL
@@ -28,7 +27,7 @@ def isCheckMate(board, player):
     Determines if game has ended.
 
     @param board:   A list of lists representing the board state.
-    @param player:  Player (e.g. constants.WHITE_PLAYER)
+    @param player:  The current player (e.g. constants.WHITE_PLAYER)
     @return:        True if game has ended, False otherwise.
     """
     boardCopy = board.getBoard()
@@ -104,7 +103,8 @@ def isCheck(board, player, move):
     Determines if king is in check after move.
 
     @param board:   A list of lists representing the board state.
-    @param player:  Player (e.g. constants.WHITE_PLAYER)
+    @param player:  Player (e.g. constants.WHITE_PLAYER).
+    @param move:    Four character combination representing move (e.g. [1, 2, 1, 4]).
     @return:        True if king is in check, False otherwise.
     """
     testBoard = deepcopy(board)
@@ -134,7 +134,7 @@ def isCheckStatic(board, player):
     Determines if king is in check.
     
     @param board:   A list of lists representing the board state.
-    @param player:  Player (e.g. constants.WHITE_PLAYER)
+    @param player:  Player (e.g. constants.WHITE_PLAYER).
     @return:        True if king is in check, False otherwise.
     """
     location = kingLocator(board, player)
@@ -156,12 +156,12 @@ def isCheckStatic(board, player):
 
 def isCheckByDiagonal(location, board, player):
     """
-    Helper method to determine if king under attack by rook or queen horizontally.
+    Helper method to determine if king under attack by bishop or queen diagonally.
 
-    @param location:
-    @param board: 
-    @param player:
-    @return: 
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
 
@@ -271,10 +271,10 @@ def isCheckByHorizontal(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen horizontally.
 
-    @param location:
-    @param board:
-    @param player:
-    @return:
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in the same row as king
@@ -328,10 +328,10 @@ def isCheckByVertical(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen vertically.
 
-    @param location:
-    @param board:
-    @param player:
-    @return:
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in same column as king
@@ -385,10 +385,10 @@ def isCheckByKing(location, board, player):
     """
     Helper method to determine if king under attack by knight.
 
-    @param location:
-    @param board:
-    @param player:
-    @return:
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     if player == constants.WHITE_PLAYER:
         #Checks if white king is in check by black king
@@ -452,10 +452,10 @@ def isCheckByPawn(location, board, player):
     """
     Helper method to determine if king under attack by pawn.
 
-    @param location:
-    @param board:
-    @param player:
-    @return:
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     if player == constants.WHITE_PLAYER:
         #Checks if white king is under attack by black pawn
@@ -483,10 +483,10 @@ def isCheckByKnight(location, board, player):
     """
     Helper method to determine if king under attack by knight.
 
-    @param location:
-    @param board:
-    @param player:
-    @return:
+    @param location:   Location of current player's king.
+    @param board:      A list of lists representing the board state.
+    @param player:     Player (e.g. constants.WHITE_PLAYER).
+    @return:           True if king is in check, False otherwise.
     """
     if player == constants.WHITE_PLAYER:
         #Checks locations where black knight would put white king in check

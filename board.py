@@ -6,7 +6,6 @@ import constants
 import board_analyzer
 
 class Board(object):
-
     def __init__(self):
         """
         Initializes a new chess board.
@@ -31,19 +30,19 @@ class Board(object):
 
     def getBoard(self):
         """
-        Returns a copy of the current board's
-        state.
+        Returns a copy of the current board's state.
 
-        @return:    Copy of board (as list of lists)
+        @return:    Copy of board (as list of lists).
         """
         return self._board
     
     def pieceOwner(self, specific_move):
         """
-        Returns the owner of a given piece
+        Returns the owner of a given piece.
         
-        @param move    The space you are trying to check (e.g. [a2])
-        @return:       Either constants.WHITE_PLAYER or constants.BLACK_PLAYER
+        @param specific_move    The space you are trying to check (e.g. [1, 2]).
+        @return:                Either constants.WHITE_PLAYER or 
+                                constants.BLACK_PLAYER.
         """
         if constants.BLACK_PLAYER_SYMBOL in self._board[specific_move[0]][specific_move[1]]:
             return constants.BLACK_PLAYER
@@ -54,12 +53,11 @@ class Board(object):
     
     def _moveConverter(self, move):
         """
-        Converts move from original string input to a list of integers 
-        (e.g. "a2a3" => [0,1,0,2])
+        Converts move from original string input to a list of integers: 
+        e.g. "a2a3" => [0, 1, 0, 2].
 
-        @param move:    Player's move (e.g. "a2a3")
-        @return:        List containing indices for board data structure.
-                        (e.g. [0,1,0,2])
+        @param move:    Player's move (e.g. "a2a3").
+        @return:        List containing indices for board (e.g. [0, 1, 0, 2]).
         """
         converter = {"a":0, "b":1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
         new_move = []
@@ -69,50 +67,54 @@ class Board(object):
             else:
                 new_move.append(int(string)-1)
         move = new_move
+        
         return move
         
     def isLegalMove(self, currentPlayer, move):
         """
         Determines if a move is legal or not.
+        
         A move is not legal if any of the following is true:
          a) piece is not actually moved (e.g. 'a5a5')
          b) move refers to empty space
          c) the game piece is not owned by the current player
          d) a game piece owned by the same player is at the destination
          e) the move is not legal for the game piece
-         f) not moving into check 
+         f) not moving into check
 
-        @precondition: Method presumes that move is well-formed.
-        (e.g. row and column values are correct)
-
-        @param move:        Four letter combination representing move. (e.g. "b3c4") 
-        @return:            True if move is legal, False otherwise.
+        @precondition:    Method presumes that move is well-formed.
+        (e.g. row and column values are correct).
+        
+        @param currentPlayer:  "1" for white, "2" for black.
+        @param move:           Four character combination representing move 
+                               (e.g. [1, 2, 1, 4]).
+        @return:               True if move is legal, False otherwise.
         """
-        #a)Tests for whether a piece is not actually moved (e.g. 'a5a5') 
+        #Tests for whether a piece is not actually moved 
         if move[0:2] == move[2:4]:
             return False
         else:
             validity = True
         
-        #b)Tests if there is a piece in the targeted space
+        #Tests if there is a piece in the targeted space
         if self._board[move[0]][move[1]] == constants.EMPTY_SYMBOL:
             return False
         else:
             validity = True
             
-        #c)Tests if the game piece is not owned by the current player
+        #Tests if the game piece is not owned by the current player
         if currentPlayer != self.pieceOwner([move[0], move[1]]):
             return False
         else:
             validity = True
        
-        #d)Tests if game piece owned by the current player occupies end destination
+        #Tests if game piece owned by the current player occupies end destination
         if currentPlayer == self.pieceOwner([move[2], move[3]]):
             return False
         else:
             validity = True
         
-        #e)Tests whether the move is legal for a specific piece
+        #Tests whether the move is legal for a specific piece
         if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForPawn(move, currentPlayer) == True:
                 validity = True
@@ -144,7 +146,7 @@ class Board(object):
             else:
                 return False
         
-        #f)Tests whether current player's move will move current player in check
+        #Tests whether current player's move will move current player in check
         if board_analyzer.isCheck(self._board, currentPlayer, move) == True:
             return False
         else:
@@ -155,6 +157,9 @@ class Board(object):
     def _isLegalMoveForRook(self, move):
         """
         Helper method for determining if move is legal for rook.
+        
+        @param move:    Four-character combination representing player move.
+        @return:        True if move is legal, False otherwise.
         """
         horizontal = None
         vertical = None
@@ -210,6 +215,9 @@ class Board(object):
     def _isLegalMoveForKnight(self, move):
         """
         Helper method for determining if move is legal for knight.
+        
+        @param move:    Four-character combination representing player move.
+        @return:        True if move is legal, False otherwise.
         """
         if (move[0] + 2 == move[2] and move[1] + 1 == move[3]) or \
         (move[0] + 2 == move[2] and move[1] - 1 == move[3]) or \
@@ -226,6 +234,9 @@ class Board(object):
     def _isLegalMoveForBishop(self, move):
         """
         Helper method for determining if move is legal for bishop.
+        
+        @param move:    Four-character combination representing player move.
+        @return:        True if move is legal, False otherwise.
         """
         #Allows for diagonal movement
         if abs(move[2] - move[0]) != abs(move[3] - move[1]):
@@ -262,7 +273,10 @@ class Board(object):
         Helper method for determining if move is legal for queen.
         
         Calls isLegalMoveForRook and isLegalMoveForBishop since queen
-        movements are either rook-like or bishop-like
+        movements are either rook-like or bishop-like.
+        
+        @param move:    Four-character combination representing player move.
+        @return:        True if move is legal, False otherwise.
         """
         if xor(self._isLegalMoveForRook(move), self._isLegalMoveForBishop(move)) == True:
             return True
@@ -272,6 +286,9 @@ class Board(object):
     def _isLegalMoveForKing(self, move):
         """
         Helper method for determining if move is legal for king.
+        
+        @param move:    Four-character combination representing player move.
+        @return:        True if move is legal, False otherwise.
         """
         #Allows for horizontal movement
         if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
@@ -299,6 +316,10 @@ class Board(object):
     def _isLegalMoveForPawn(self, move, currentPlayer):
         """        
         Helper method for determining if move is legal for pawn.
+        
+        @param move:            Four-character combination representing player move.
+        @param currentPlayer:   "1" for white, "2" for black.
+        @return:                True if move is legal, False otherwise.
         """
         acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
         
@@ -354,8 +375,10 @@ class Board(object):
         """
         Moves chess piece.
 
-        @precondition:      isLegalMove() must be True.
-        @param move:        Four letter combination representing move. (e.g. "b3c4") 
+        @precondition:         isLegalMove() must be True.
+        
+        @param currentPlayer:  "1" for white, "2" for black.
+        @param move:           Four-character combination representing player move.
         """
         targetPiece = self._board[move[0]][move[1]]
         self._board[move[2]][move[3]] = targetPiece

@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+"""
+Constants used throughout the game.
+"""
 #Player color
 WHITE_PLAYER = 1
 BLACK_PLAYER = 2

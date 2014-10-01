@@ -25,7 +25,8 @@ class Game(object):
           "by Chris Wang, Dmitriy Chukhin, and Jim Ladd\n" \
           "\n" \
           "To move a piece, give the starting and ending coordinates.\n" \
-          "To move the white knight for example, type 'b1c3'.\n\n" \
+          "To move the white knight for example, type 'b1c3'.\n" \
+          "To quit, type 'quit'.\n\n" \
           "Enjoy!\n\n"
  
         print welcome
@@ -126,5 +127,5 @@ class Game(object):
     def _printHelp(self):
         helpText = "\n Type the starting and ending coordinates.\n" \
                    " For example, 'b1c3'.\n\n" \
-                   " Type quit to quit.\n"
+                   " Type 'quit' to quit.\n"
         print helpText

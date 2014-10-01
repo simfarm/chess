@@ -18,7 +18,7 @@ def kingLocator(board, player):
         piece = constants.BLACK_KING_SYMBOL
         
     for line in board:
-    if piece in line:
+        if piece in line:
             location = [board.index(line), line.index(piece)]
                 
     return location

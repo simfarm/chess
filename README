@@ -2,13 +2,11 @@
 Solidarity Bros. Chess Game
 By Chris Wang, Dmitriy Chukhin, and Jim Ladd
 
-Dec 28, 2013
+October 1, 2014
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
 ***************
 * How to Play *
 ***************
-
  To start a game, simply type:
  $ ./main.py
 
@@ -38,7 +36,6 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 ***************
 * How to Test *
 ***************
-
  To test the game, type:
  $ ./test.py
 
@@ -54,8 +51,25 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 ****************
 * Requirements *
 ****************
-
  To run the tests (test.py), you must have
  the mock library installed:
 
  $ sudo pip install mock
+ 
+ 
+****************
+* Future Work  *
+****************
+ Chess is still a work in progress. Version 1.0 contains the ability to play 
+ a basic game of chess but there is still work to be done.
+ 
+ Work regarding game itself:
+ -Implement en passant
+ -Implement castling
+ -Implement pawn promotion
+ 
+ Future features:
+ -Develop a move log and display the move log at the end of the game.
+ -Develop the ability to save games.
+ -Add in time controls.
+ -Develop a graphical user interface?
